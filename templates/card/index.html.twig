@@ -1,0 +1,75 @@
+{% extends 'auth_base.html.twig' %}
+
+{% block title %}{{ parent() }}{% endblock %}
+
+{% block nav_li_2 %}
+		<nav class="navbar navbar-expand-lg navbar-dark bg-info">
+			<div class="container-fluid">
+				<div class="collapse navbar-collapse justify-content-start" id="navbarScroll">
+					<ul class="navbar-nav">
+						<li class="nav-item">
+							<a class="btn btn-secondary" href="" role="button">All</a>
+						</li>
+                        <li class="nav-item">
+							<a class="btn btn-danger" href="" role="button">Red</a>
+						</li>
+                        <li>
+                            <a class="btn btn-success" href="" role="button">Green</a>
+						</li>
+                        <li class="nav-item">
+							<a class="btn btn-primary" href="" role="button">Blue</a>
+						</li>
+                        <li class="nav-item">
+							<a class="btn btn-dark" href="" role="button">Dark</a>
+						</li>
+                        <li class="nav-item">
+							<a class="btn btn-light" href="" role="button">White</a>
+						</li>
+                    </ul>
+                </div>
+                <div class="d-flex flex-row-reverse" id="selectNavbarScroll">
+                    <select class="form-select" aria-label="Default">
+                        <option selected>Choice type of Deck</option>
+                        <option value="1">Offensive Deck</option>
+                        <option value="2">Defensive Deck</option>
+                    </select>
+                </div>
+            </div>
+		</nav>
+{% endblock %}
+
+{% block body %}
+<br>
+<br>
+<center>
+    <div class="container">
+        <div class="row">
+            <div class='col'>
+                <img src="../img/all_card_1.png">
+            </div>
+            <div class='col'>
+                <img src="../img/all_card_2.png">
+            </div>
+            <div class='col'>
+                <img src="../img/all_card_3.png">
+            </div>
+        </div>
+    </div>
+    <br>
+    <nav>
+        <ul class="pagination justify-content-center">
+            <li class="page-item disabled">
+                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+            </li>
+            <li class="page-item"><a class="page-link" href="#">1</a></li>
+            <li class="page-item active" aria-current="page">
+                <a class="page-link" href="#">2</a>
+            </li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item">
+                <a class="page-link" href="#">Next</a>
+            </li>
+        </ul>
+    </nav>
+</center>
+{% endblock %}
