@@ -4,6 +4,34 @@
 
 {% block body %}
 <center>
-    <h1>Formulaire d'ajout de deck</h1>
+    <div class="container-md-auto-form-login">
+        <div class="row justify-content-md-center">
+            <div class="col-3">
+                    <h1>Add Deck</h1>
+                {{ form_start(form, { attr: { novalidate: 'novalidate' }}) }}
+                <div>
+                     {{ form_row(form.name)}}
+                </br>
+                </div>
+                <div>
+                    {{ form_row(form.max_size) }}
+                    <script>
+                        document.querySelector('#deck_max_size').onchange = (e)=>{
+                            document.getElementById('textInput').value = e.target.value;
+                        }
+                    </script>
+                Vous allez ajouter <output type="text" id="textInput">40</output> Cartes
+                </div>
+                </br>
+                <div>
+                    {{ form_row(form.description) }}
+                </div>
+                    <button class="btn btn-lg btn-primary" type="submit">
+                            Send Deck
+                    </button>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
 </center>
 {% endblock %}

@@ -4,12 +4,21 @@
 
 {% block body %}
 <center>
-    <div class="container">
-        <div class="row">
-            <div class='col'>
-                <img src="../img/create_account.png"></a>
+    <div class="container-md-auto-form-login">
+        <div class="row justify-content-md-center">
+            <div class="col-3">
+                <h1>Register</h1>
+                {{ form_start(registrationForm, { attr: { novalidate: 'novalidate' }}) }}
+                </br>
+                    {{ form_row(registrationForm.email) }}
+                    {{ form_row(registrationForm.plainPassword) }}
+                    {{ form_row(registrationForm.agreeTerms) }}
+                    <button class="btn btn-lg btn-primary" type="submit">
+                        Register
+                    </button>
+                {{ form_end(registrationForm) }}
             </div>
         </div>
     </div>
-</center>
+<center>
 {% endblock %}

@@ -30,8 +30,13 @@
                 <div class="d-flex flex-row-reverse" id="selectNavbarScroll">
                     <select class="form-select" aria-label="Default">
                         <option selected>Choice type of Deck</option>
-                        <option value="1">Offensive Deck</option>
-                        <option value="2">Defensive Deck</option>
+                        {% for deck in decks %}
+                        <option value="{{ deck.id }}">
+                            <a href="{{ path('deck_show', { 'name':deck.name }) }}">
+                                {{ deck.name }}
+                            </a>
+                        </option>
+                        {% endfor %}
                     </select>
                 </div>
             </div>

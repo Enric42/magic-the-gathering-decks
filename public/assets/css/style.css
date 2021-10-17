@@ -24,3 +24,65 @@ body.user_new,body.user_show  {
         background-size: cover;
         background-repeat: no-repeat;
 }
+
+div.container-md-auto-form-login {
+    color: white;    
+}
+
+output {
+    color: black;
+    font-weight: bold;
+    }
+
+.container-deck {
+    display: inline-block;
+    position: relative;
+}
+.container-deck .text-deck {
+    /*transform: rotate(-20deg);*/
+    background: rgba(0, 0, 0, 0.678);
+    z-index: 1;
+    position: absolute;
+    text-align: center;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+    top: 35%;
+    color: white;
+    width: 40%;
+}
+
+.img-deck {
+    width: 50%;
+    height: 50%;
+}
+
+.deck-view {
+    background: rgba(0, 0, 0, 0.589);
+    transform: rotate(-2deg);
+    color: white;
+    width: 15%;
+}
+
+.list-view {
+    background: rgba(0, 0, 0, 0.589);
+    color: white;
+    font-size: 30px;
+}
+
+
+
+
+.ribbon {
+padding: .75em 0 .75em 0;
+border-radius: .5em .5em .5em .5em;
+background-color: rgba(0, 0, 0, 0.541);
+box-shadow: inset 0 .062em 0 rgba(255, 221, 25, 0.2), 0 .125em .25em rgba(255, 221, 25, 0.2);
+color: rgb(255, 255, 255);
+font-size: 30px;
+text-shadow: 0 -.062em 0 rgba(0,0,0,.2);
+text-transform: uppercase;
+transform: rotate(-1deg);
+filter: sepia();
+width: 50%;
+}
