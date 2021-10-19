@@ -44,7 +44,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $password;
 
     /**
-     * @ORM\OneToMany(targetEntity=deck::class, mappedBy="user", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Deck::class, mappedBy="user", orphanRemoval=true)
      */
     private $decks;
 
@@ -143,14 +143,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @return Collection|deck[]
+     * @return Collection|Deck[]
      */
     public function getDecks(): Collection
     {
         return $this->decks;
     }
 
-    public function addDeck(deck $deck): self
+    public function addDeck(Deck $deck): self
     {
         if (!$this->decks->contains($deck)) {
             $this->decks[] = $deck;
@@ -160,7 +160,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function removeDeck(deck $deck): self
+    public function removeDeck(Deck $deck): self
     {
         if ($this->decks->removeElement($deck)) {
             // set the owning side to null (unless already changed)

@@ -9,9 +9,11 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/deck')]
+#[IsGranted('ROLE_USER')]
 
 class DeckController extends AbstractController
 {
@@ -20,10 +22,7 @@ class DeckController extends AbstractController
     {
 
         return $this->render('deck/index.html.twig', [
-            'decks' => $deckrepository->findByUser(
-                [
-                    "name" => $this->getUser()
-                ],
+            'decks' => $deckrepository->findByUser($this->getUser(),
                 [
                     'id' => 'DESC'
                 ]
@@ -48,30 +47,42 @@ class DeckController extends AbstractController
         ]);
     }
 
-    #[Route('/{name<^\w+( +\w+)*$>}', name: 'deck_show', methods:['GET'])]
-    //#[Route('/{name}', name: 'deck_show', methods:['GET'], requirements:['name=\w{1,256}'] )]
-    public function show(string $name , DeckRepository $deckrepository): Response
-    {
-
-        return $this->render('deck/show.html.twig', [
-            'decks' => $deckrepository->findByName($name)
-        ]);
-    }
-
-    #[Route('/{name<^\w+( +\w+)*$>}/delete', name: 'deck_delete', methods:['GET'])]
-    //#[Route('/{name}/delete', name: 'deck_delete', methods:['GET'], requirements:['name=\w{1,256}'] )]
-    public function delete(string $name, DeckRepository $deckrepository, EntityManagerInterface $manager): Response
+    #[Route('/{name<.{1,256}>}/delete', name: 'deck_delete', methods:['GET'])]
+    public function delete(string $name, DeckRepository $deckrepository, EntityManagerInterface $manager, Request $request): Response
     {  
+        // protection faille CSRF avec un token
+        if ($this->isCsrfTokenValid('deck_delete',$request->query->get('token'))) {
 
-        $deck = $deckrepository->findByName($name);
+            $deck = $deckrepository->findOneBy([
+                'user' => $this->getUser(),
+                'name' => $name
+            ]);
 
-            foreach ($deck as $decks) { 
-                $manager->remove($decks);
+            if ($deck) {
+                $manager->remove($deck);
+                $manager->flush();
             }
-
-            $manager->flush();
+        }
 
         return $this->redirectToRoute('deck_index');
 
     }
+
+    #[Route('/{name<.{1,256}>}', name: 'deck_show', methods:['GET'])]
+    public function show(string $name , DeckRepository $deckrepository): Response
+    {
+
+        $deck = $deckrepository->findOneBy([
+                'user' => $this->getUser(),
+                'name' => $name
+        ]);
+
+        return !$deck
+            ? $this->redirectToRoute('deck_index')
+            : $this->render('deck/show.html.twig', [
+                'deck' => $deck
+            ]);
+
+    }
+
 }

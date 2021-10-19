@@ -3,7 +3,7 @@
 {% block title %}{{ parent() }}{% endblock %}
 
 {% block nav_li_2 %}
-		<nav class="navbar navbar-expand-lg navbar-dark bg-info">
+		<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: transparent;">
 			<div class="container-fluid">
 				<div class="collapse navbar-collapse justify-content-start" id="navbarScroll">
 					<ul class="navbar-nav">
@@ -28,7 +28,7 @@
                     </ul>
                 </div>
                 <div class="d-flex flex-row-reverse" id="selectNavbarScroll">
-                    <select class="form-select" aria-label="Default">
+                    <select class="form-select" id="deck-select" aria-label="Default">
                         <option selected>Choice type of Deck</option>
                         {% for deck in decks %}
                         <option value="{{ deck.id }}">
@@ -44,6 +44,29 @@
 {% endblock %}
 
 {% block body %}
+</br>
+</br>
+    <div class="container">
+        <div class="row">
+            {% if cards %}
+                {% for card in cards %}
+                    <div class='col-4'>
+                        <center>
+                            <p class="card-view">Card name :</p>
+                            <i class="card-title">{{card.name}}</i>
+                            <p>
+                                {% if card.multiverseid %}
+                                <img src="http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid={{card.multiverseid}}&type=card">
+                                {% else %}
+                                <img src="../img/no_picture_card.png">
+                                {% endif %}
+                            </p>
+                        </center>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
 <br>
 <br>
 <center>
@@ -61,7 +84,7 @@
         </div>
     </div>
     <br>
-    <nav>
+{#     <nav>
         <ul class="pagination justify-content-center">
             <li class="page-item disabled">
                 <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
@@ -75,6 +98,6 @@
                 <a class="page-link" href="#">Next</a>
             </li>
         </ul>
-    </nav>
+    </nav> #}
 </center>
 {% endblock %}

@@ -10,29 +10,39 @@
                     {% if not decks %}
                     <div>
                     <h1>You have no deck , please create one !</h1>
-                     </div>
+                    </div>
+                    <br>
+                    <div class='col-4 align-self-center'>
+                            <a class="btn btn-light" href="{{path('deck_new')}}" role="button">➕ Add deck</a>
+                    </div>
                      </br>
-                    {% endif %}
-                    </br>
+                    {% else %}
                     <div class="ribbon">Your Deck List</div>
+                    </br>
                     </br>
                     <div class="row">
                     {% for deck in decks %}
-                        <div class='col-sm-4'>
+                        <div class='col-4'>
                             <div class="container-deck">
                                 <a href="{{ path('deck_show', {'name':deck.name} ) }}"><img class="img-deck" src="../img/deck_view.png"></a>
                                     <div class="text-deck">
                                         {{ deck.name }}
                                     </div>
                             </div>
+                        </br>
+                        </br>
+                        </br>
+                        </br>
                         </div>
+
                         {% endfor %}
-                        <div class='col-sm align-self-center'>
+                        <div class='col-4 align-self-center'>
                             <a class="btn btn-light" href="{{path('deck_new')}}" role="button">➕ Add deck</a>
                         </div>
                     </div>
                 </div>
                 <br>
+                    {% endif %}
             {#  <nav>
                     <ul class="pagination justify-content-center">
                         <li class="page-item disabled">

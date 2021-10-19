@@ -2,10 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\CardRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\CardRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 /**
  * @ORM\Entity(repositoryClass=CardRepository::class)
@@ -25,7 +26,7 @@ class Card
     private $name;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $multiverse_id;
 
@@ -35,7 +36,7 @@ class Card
     private $mana_cost;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="text", nullable=true)
      */
     private $text;
 
@@ -54,6 +55,7 @@ class Card
      */
     private $decks;
 
+    
     public function __construct()
     {
         $this->colors = new ArrayCollection();
@@ -83,7 +85,7 @@ class Card
         return $this->multiverse_id;
     }
 
-    public function setMultiverseId(int $multiverse_id): self
+    public function setMultiverseId(?int $multiverse_id): self
     {
         $this->multiverse_id = $multiverse_id;
 
@@ -107,7 +109,7 @@ class Card
         return $this->text;
     }
 
-    public function setText(string $text): self
+    public function setText(?string $text): self
     {
         $this->text = $text;
 

@@ -7,7 +7,6 @@
 <center>
     <div class="container">
         <div class="row">
-            {% for deck in decks %}
                 <div class='col'>
                     <div class="container">
                         <p class="deck-view">Deck name :</p>
@@ -26,13 +25,30 @@
                 </div>
         </div>
         <div class='align-items-center'>
-            <a class="btn btn-light" href="{{path('deck_index')}}" role="button">⬅️ Retour</a>
-            <a class="btn btn-light" href="{{path('deck_delete', {'name':deck.name})}}" onclick="return confirm('Try deleted Deck ! Are you sure ?');" role="button">🗑️</a>
+            <a class="btn btn-light" href="{{path('deck_index')}}" role="button">⬅️ Back</a>
+            <a class="btn btn-light" data-bs-toggle="modal" data-bs-target="#exampleModal" role="button">🗑️</a>
         </div>
     </div>
 
-
-    {% endfor %}
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Deleted Deck</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        You will delete your deck
+        are you sure ?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">No</button>
+        <a class="btn btn-success" href="{{path('deck_delete', {'name':deck.name}) }}?token={{ csrf_token('deck_deleted') }}" role="button">Yes</a>
+      </div>
+    </div>
+  </div>
+</div>
     <br>
     {#<nav>
         <ul class="pagination justify-content-center">
