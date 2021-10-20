@@ -6,7 +6,7 @@
             <br>
             <br>
             <center>
-                <div class="container">
+                <div class="container" id="deckbody">
                     {% if not decks %}
                     <div>
                     <h1>You have no deck , please create one !</h1>
@@ -34,8 +34,7 @@
                         </br>
                         </br>
                         </div>
-
-                        {% endfor %}
+                    {% endfor %}
                         <div class='col-4 align-self-center'>
                             <a class="btn btn-light" href="{{path('deck_new')}}" role="button">➕ Add deck</a>
                         </div>
@@ -43,21 +42,6 @@
                 </div>
                 <br>
                     {% endif %}
-            {#  <nav>
-                    <ul class="pagination justify-content-center">
-                        <li class="page-item disabled">
-                            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-                        </li>
-                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item active" aria-current="page">
-                            <a class="page-link" href="#">2</a>
-                        </li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">Next</a>
-                        </li>
-                    </ul>
-                </nav> #}
             </center>
 {% endblock %}
 

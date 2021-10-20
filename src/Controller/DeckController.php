@@ -4,8 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Deck;
 use App\Form\DeckType;
-use App\Repository\DeckRepository;
-use Doctrine\ORM\EntityManagerInterface;
+use App\Service\DeckService;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -18,50 +17,38 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class DeckController extends AbstractController
 {
     #[Route('/', name: 'deck_index', methods:['GET'])]
-    public function index(DeckRepository $deckrepository): Response
+    public function index(DeckService $deckservice): Response
     {
-
         return $this->render('deck/index.html.twig', [
-            'decks' => $deckrepository->findByUser($this->getUser(),
-                [
-                    'id' => 'DESC'
-                ]
-            )
+            'decks'=> $deckservice->getDecks($this->getUser())
         ]);
     }
 
     #[Route('/new', name: 'deck_new', methods:['GET','POST'])]
-    public function new(Request $request , EntityManagerInterface $manager): Response
+    public function new(Request $request , DeckService $deckservice): Response
     {   
         $deck = new Deck();
-        $form = $this->createForm(DeckType::class, $deck);
-        $form->handleRequest($request);
+
+        $form = $this->createForm(DeckType::class, $deck)-> handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid()) {
-            $deck->setUser($this->getUser());
-            $manager->persist($deck);
-            $manager->flush();
+
+            $deckservice->addDeck($this->getUser(), $deck);
             return $this->redirectToRoute('deck_index');
         }
+
         return $this->render('deck/new.html.twig', [
             'form' => $form->createView()
         ]);
     }
 
     #[Route('/{name<.{1,256}>}/delete', name: 'deck_delete', methods:['GET'])]
-    public function delete(string $name, DeckRepository $deckrepository, EntityManagerInterface $manager, Request $request): Response
+    public function delete(string $name, DeckService $deckservice , Request $request): Response
     {  
         // protection faille CSRF avec un token
         if ($this->isCsrfTokenValid('deck_delete',$request->query->get('token'))) {
-
-            $deck = $deckrepository->findOneBy([
-                'user' => $this->getUser(),
-                'name' => $name
-            ]);
-
-            if ($deck) {
-                $manager->remove($deck);
-                $manager->flush();
-            }
+            
+            $deckservice->deleteDeck($this->getUser(), $name);
         }
 
         return $this->redirectToRoute('deck_index');
@@ -69,13 +56,10 @@ class DeckController extends AbstractController
     }
 
     #[Route('/{name<.{1,256}>}', name: 'deck_show', methods:['GET'])]
-    public function show(string $name , DeckRepository $deckrepository): Response
+    public function show(string $name , DeckService $deckservice): Response
     {
 
-        $deck = $deckrepository->findOneBy([
-                'user' => $this->getUser(),
-                'name' => $name
-        ]);
+        $deck = $deckservice->getDeck($this->getUser(), $name);
 
         return !$deck
             ? $this->redirectToRoute('deck_index')

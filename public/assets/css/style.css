@@ -20,9 +20,20 @@
     }
 
 body.user_new,body.user_show  {
-        background-image: url('/img/background2.png') !important;
-        background-size: cover;
-        background-repeat: no-repeat;
+    background-image: url('/img/background2.png') !important;
+}
+body {
+    width: 98%;
+}
+
+body.card {
+    background-attachment: fixed !important;
+    margin-top: 5%;
+    border-color: transparent;
+}
+
+#bar2, #deckbody, #showdeckbody, #adddeckbody, #signinbody, #signupbody {
+    margin-top: 3.5%;
 }
 
 div.container-md-auto-form-login {
@@ -39,7 +50,6 @@ output {
     position: relative;
 }
 .container-deck .text-deck {
-    /*transform: rotate(-20deg);*/
     background: rgba(0, 0, 0, 0.678);
     z-index: 1;
     position: absolute;
@@ -68,7 +78,7 @@ output {
     background: rgba(0, 0, 0, 0.589);
     transform: rotate(-2deg);
     color: white;
-    width: 25%;
+    width: 40%;
 }
 
 .card-title {
@@ -103,3 +113,8 @@ transform: rotate(-1deg);
 filter: sepia();
 width: 50%;
 }
+
+.pagination {
+    justify-content: center;
+}
+
